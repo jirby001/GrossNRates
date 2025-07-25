@@ -16,8 +16,6 @@ d <- d %>% rename_all(funs(make.names(.)))# Remove spaces in column names
 winter <- filter(d, Season %in% c("Winter")) #winter season only
 summer <- filter(d, Season %in% c("Summer")) #summer season only
 
-##TODO: find script for fig 2
-
 ####Fig 3 - Soil Moisture####
 winter$Season <- "Winter"
 summer$Season <- "Summer"
