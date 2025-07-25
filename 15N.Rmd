@@ -1,0 +1,206 @@
+---
+title: "d15N Graphs"
+author: "Jamie Irby"
+date: "2024-08-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 15N Graphs
+## Intro
+From previous research (Von Sperber et al., 2017, Wang et al., 2014, etc.), we are observe that precipitation patterns influence N cycling through patterns revealed by the isotopic composition of N in bulk soils (from here onwards referred to as 15N). 15N can indicate an ecosystem's capacity to retain or lose N: the more 15N in bulk soil, the more likely the ecosystem is lose N, as the N lost is more likely the lighter 14N which leaves behind relatively increased values of 15N (enriching the soils). 
+
+Research has shown that 15N has a non-linear relationship with precipitation; specifically, that both low and high amounts of annual precipitation can enrich soil N, which mechanisms behind arid region enrichment still undetermined.
+
+We are graphing d15N from soils sampled across time from each of our precipitation treatments. We expect that our altered precipitation treatments can simulate different levels of aridity to potentially reveal similar patterns observed under natural aridity gradients. Pairing this with our results on internal N processing, we may be able to better understand how aridity can influence 15N
+
+```{r Load Libraries and Data, include = FALSE}
+library(lme4)
+library(lmerTest)
+library(MuMIn)
+library(ggplot2)
+library(readxl) 
+library(dplyr)
+
+data <- read_excel("GrossNRatesData.xlsx", sheet = "Pinyon EA", range = "A1:I153")
+data <- data %>% rename_all(funs(make.names(.)))
+```
+
+## Statistics
+Since our samples were taken over time from the same plots, we need to account for non-independence and variability from repeated sampling. Further, we expect a non-linear relationship with precipitation. We did this by using a polynomial mixed effects model, where the fixed effects were Rain received, while the random effects were plots and date sampled. 
+
+From this model, we were able to extract the marginal and conditional R^2 as well as the p-value:
+
+```{r Perform Statistics, echo = FALSE}
+model <- lmer(d15N ~ poly(Rain, 2) * Season * Treatment + (1 | Sample.ID) + (1 | Date), data = data)
+#model <- lmer(d15N ~ Rain * Season * Treatment + (1 | Sample.ID) + (1 | Date), data = data)
+
+print("lmer(d15N ~ poly(Rain, 2) * Season * Treatment + (1 | Sample.ID) + (1 | Date), data = data)")
+# Calculate Marginal and Conditional R^2
+r2_values <- r.squaredGLMM(model)
+marginal_r2 <- r2_values[1]
+conditional_r2 <- r2_values[2]
+
+# Get p-value for the fixed effect of rain
+anova_results <- anova(model)
+p_value_rain <- anova_results$`Pr(>F)`[1]
+p_value_quadratic <- anova_results$`Pr(>F)`[2]
+p_value_interaction <- anova_results$`Pr(>F)`[4]
+
+#Print R2 and p values
+print(paste("Marginal R^2: ", round(marginal_r2, 3)))
+print(paste("Conditional R^2: ", round(conditional_r2, 3)))
+print(paste("p-value for Rain: ", format.pval(p_value_rain, digits = 3)))
+print(paste("p-value for Rain^2: ", format.pval(p_value_quadratic, digits = 3)))
+print(paste("p-value for Interaction: ", format.pval(p_value_interaction, digits = 3)))
+print(anova_results)
+```
+
+Unfortunatley it looks like the p-value isn't significant for the general trend.  
+
+However, when we graph the 15N values, we can still see that some treatments reveal patterns similar to those observed in previouse research. Some treatments show linear relationships, others non-linear:
+## Graphs
+```{r Make Graphs, echo = FALSE}
+treatment_colors <- c("Control" = "#ffe599", 
+                      "Summer-" = "#f2a6a6", 
+                      "Winter-" = "#b0d2f2", 
+                      "Summer+" = "#e87e76", 
+                      "Winter+" = "#329bea", 
+                      "General Trend" = "black") 
+
+
+
+l2 <-  expression(paste(delta^{15}, "N (\u2030)"))
+
+ggplot(data, aes(x = Rain, y = d15N, color = Treatment)) +
+  geom_point() +
+  scale_color_manual(values = treatment_colors)+
+  labs(
+    x = "Cumulative precipitation per water year at time of sampling (mm)",
+    y = l2,
+    color = "Legend",  # Label for the legend
+    linetype = element_blank()
+  )+
+  theme_classic()
+```
+
+
+Maybe our treatments did not alter aridity as much as we would have initially thought. We also did not account for any N input over time. Further, there are many other N processes that could fractionate the 15N pool to account for, relating to precipitation directly or indirectly.
+Thus while we can't come to a direct conclusion based on our limited data, we still see a vague pattern that could be understood more thoroughly when taking into consideration more aspects of N isotopic composition for future studies. 
+
+
+### Individual Treatments
+#### Winter-, linear model
+
+```{r Winter-, echo = FALSE}
+
+
+winter_m <- filter(data, data$Treatment == "Winter-")
+
+model <- lmer(d15N ~ Rain +  (1 | Sample.ID) + (1 | Date), data = winter_m)
+#model <- lmer(d15N ~ poly(Rain, 2) + (1 | Sample.ID) + (1 | Date), data = winter_m)
+
+# Calculate Marginal and Conditional R^2
+r2_values <- r.squaredGLMM(model)
+marginal_r2 <- r2_values[1]
+conditional_r2 <- r2_values[2]
+
+# Get p-value for the fixed effect of rain
+anova_results <- anova(model)
+anova_results
+```
+
+
+
+#### Winter+ linear model
+```{r Winter+, echo = FALSE}
+
+
+winter_p <- filter(data, data$Treatment == "Winter+")
+
+model <- lmer(d15N ~ Rain +  (1 | Sample.ID) + (1 | Date), data = winter_p)
+
+#model <- lmer(d15N ~ poly(Rain, 2) + (1 | Sample.ID) + (1 | Date), data = winter_p)
+
+# Calculate Marginal and Conditional R^2
+r2_values <- r.squaredGLMM(model)
+marginal_r2 <- r2_values[1]
+conditional_r2 <- r2_values[2]
+
+# Get p-value for the fixed effect of rain
+anova_results <- anova(model)
+anova_results
+```
+
+#### Summer+, linear
+```{r Summer+, echo = FALSE}
+
+
+summer_p <- filter(data, data$Treatment == "Summer+")
+
+model <- lmer(d15N ~ Rain +  (1 | Sample.ID) + (1 | Date), data = summer_p)
+#model <- lmer(d15N ~ poly(Rain, 2) + (1 | Sample.ID) + (1 | Date), data = summer_p)
+
+# Calculate Marginal and Conditional R^2
+r2_values <- r.squaredGLMM(model)
+marginal_r2 <- r2_values[1]
+conditional_r2 <- r2_values[2]
+
+# Get p-value for the fixed effect of rain
+anova_results <- anova(model)
+anova_results
+```
+
+#### Summer- linear
+```{r Summer-, echo = FALSE}
+
+
+summer_m <- filter(data, data$Treatment == "Summer-")
+
+model <- lmer(d15N ~ Rain +  (1 | Sample.ID) + (1 | Date), data = summer_m)
+#model <- lmer(d15N ~ poly(Rain, 2) + (1 | Sample.ID) + (1 | Date), data = summer_m)
+
+# Calculate Marginal and Conditional R^2
+r2_values <- r.squaredGLMM(model)
+marginal_r2 <- r2_values[1]
+conditional_r2 <- r2_values[2]
+
+# Get p-value for the fixed effect of rain
+anova_results <- anova(model)
+anova_results
+
+
+```
+
+#### Control, polynomial model
+```{r Control, echo = FALSE}
+
+
+control <- filter(data, data$Treatment == "Control")
+
+model <- lmer(d15N ~ Rain +  (1 | Sample.ID) + (1 | Date), data = control)
+model <- lmer(d15N ~ poly(Rain, 2) + (1 | Sample.ID) + (1 | Date), data = control)
+# Calculate Marginal and Conditional R^2
+r2_values <- r.squaredGLMM(model)
+marginal_r2 <- r2_values[1]
+conditional_r2 <- r2_values[2]
+
+# Get p-value for the fixed effect of rain
+anova_results <- anova(model)
+anova_results
+```
+
+## Linear Model
+```{r LM stats, echo = FALSE}
+model <- lm(d15N ~ Rain, data = data)
+r_squared <- summary(model)$r.squared
+p_value <- summary(model)$fstatistic
+p_value_overall <- pf(p_value[1], p_value[2], p_value[3], lower.tail = FALSE)
+
+
+```
+
+
