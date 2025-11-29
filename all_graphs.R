@@ -29,7 +29,7 @@ combined_summary <- combined_data %>%
     se_GWC = sd(as.numeric(GWC)) / sqrt(n())
   )
 
-# Create the plot
+
 (gwc <- ggplot(combined_data, aes(x = Treatment, y = as.numeric(GWC), fill = Season)) +
   geom_dotplot(binaxis = "y", stackdir = "center", stackratio = 0.75, binwidth = 0.15, position = position_dodge(0.8)) +
   geom_errorbar(data = combined_summary, aes(y = mean_GWC, ymin = mean_GWC - se_GWC, ymax = mean_GWC + se_GWC, group = Season),
@@ -297,7 +297,7 @@ winter_summary <- winter %>%
   )
 
 (GM_w <- ggplot(winter, aes(x = Treatment, y = as.numeric(Gross.Min), fill = Treatment))+
-   geom_dotplot(binaxis = "y", stackdir = "center", stackratio = 0.75, binwidth = 0.015)+
+   geom_dotplot(binaxis = "y", stackdir = "center", stackratio = 0.75, binwidth = 0.015, dotsize = 1.5)+
    geom_errorbar(data = winter_summary, aes(y = w_mean, ymin = w_mean - w_se, ymax = w_mean + w_se), width = 0.2) +
    stat_summary(fun = mean, geom = "crossbar", width = 0.5) +
    labs(y=expression(~paste("Gross N Mineralization rate (",mu, "g N",  " g soil"^-1, "h"^-1, ")")))  + 
@@ -308,11 +308,11 @@ winter_summary <- winter %>%
                      guide = guide_legend(override.aes = list(colour = NA)))+
    annotate("text", x = 3, y = 1, label = "Winter", size = 3.5, fontface=2)+ #adds the sub graphs for the figure at top left
    annotate("text", x = .75, y = 1, label = "A)",size = 4, fontface=2)+ 
-   annotate("text", x = 1.3, y = 0.315, label = "ab",size = 3.5)+ 
-   annotate("text", x = 2.3, y = 0.315, label = "ab",size = 3.5)+ 
-   annotate("text", x = 3.35, y = 0.242, label = "abc",size = 3.5)+ 
-   annotate("text", x = 4.3, y = 0.137, label = "c",size = 3.5)+ 
-   annotate("text", x = 5.3, y = 0.247, label = "abc",size = 3.5)+ 
+   annotate("text", x = 1.3, y = 0.325, label = "ab",size = 3.5)+ 
+   annotate("text", x = 2.3, y = 0.321, label = "ab",size = 3.5)+ 
+   annotate("text", x = 3.35, y = 0.25, label = "abc",size = 3.5)+ 
+   annotate("text", x = 4.2, y = 0.15, label = "c",size = 3.5)+ 
+   annotate("text", x = 5.3, y = 0.255, label = "abc",size = 3.5)+ 
    scale_x_discrete(labels=c("Control" ,"Summer-","Summer+","Winter-","Winter+"))+
    theme(panel.background = element_rect(colour = "black", fill = "NA", size=.7),
          panel.grid.minor=element_blank(), #gets rid of grey and lines in the middle
@@ -333,7 +333,7 @@ summer_summary <- summer %>%
   )
 
 (GM_s <- ggplot(summer, aes(x = Treatment, y = as.numeric(Gross.Min), fill = Treatment))+
-    geom_dotplot(binaxis = "y", stackdir = "center", stackratio = 0.75, binwidth = 0.015)+
+    geom_dotplot(binaxis = "y", stackdir = "center", stackratio = 0.75, binwidth = 0.015, dotsize = 1.5)+
     geom_errorbar(data = summer_summary, aes(y = s_mean, ymin = s_mean - s_se, ymax = s_mean + s_se), width = 0.2) +
     stat_summary(fun = mean, geom = "crossbar", width = 0.5) +
     #labs(y=expression(~paste(mu, "g N", "gdw"^-1)))  + 
@@ -345,11 +345,11 @@ summer_summary <- summer %>%
                       guide = guide_legend(override.aes = list(colour = NA)))+
     annotate("text", x = 3, y = 1, label = "Summer", size = 3.5, fontface=2)+ #adds the sub graphs for the figure at top left
     annotate("text", x = .75, y = 1, label = "B)",size = 4, fontface=2)+ 
-    annotate("text", x = 1.3, y = 0.43, label = "ad",size = 4)+ 
-    annotate("text", x = 2.3, y = 0.29, label = "abc",size = 4)+ 
-    annotate("text", x = 3.3, y = 0.7, label = "d",size = 4)+ 
-    annotate("text", x = 4.3, y = 0.21, label = "b",size = 4)+ 
-    annotate("text", x = 5.35, y = 0.34, label = "ab",size = 4)+ 
+    annotate("text", x = 1.3, y = 0.44, label = "ad",size = 4)+ 
+    annotate("text", x = 2.33, y = 0.295, label = "abc",size = 4)+ 
+    annotate("text", x = 3.2, y = 0.72, label = "d",size = 4)+ 
+    annotate("text", x = 4.29, y = 0.23, label = "b",size = 4)+ 
+    annotate("text", x = 5.33, y = 0.36, label = "ab",size = 4)+ 
     scale_x_discrete(labels=c("Control" ,"Summer-","Summer+","Winter-","Winter+"))+
     theme(panel.background = element_rect(colour = "black", fill = "NA", size=.7),
           panel.grid.minor=element_blank(), #gets rid of grey and lines in the middle
@@ -369,7 +369,7 @@ winter_summary <- winter %>%
     w_se = sd(as.numeric(Gross.Nit)) / sqrt(n())
   )
 (GN_w <- ggplot(winter, aes(x = Treatment, y = as.numeric(Gross.Nit), fill = Treatment))+
-    geom_dotplot(binaxis = "y", stackdir = "center", stackratio = 0.75, binwidth = 0.009)+
+    geom_dotplot(binaxis = "y", stackdir = "center", stackratio = 0.75, binwidth = 0.009, dotsize = 1.3)+
     geom_errorbar(data = winter_summary, aes(y = w_mean, ymin = w_mean - w_se, ymax = w_mean + w_se), width = 0.2) +
     stat_summary(fun = mean, geom = "crossbar", width = 0.5) +
     labs(y=expression(~paste("Gross Nitrification rate (",mu, "g NO"[3]^"-",  "-N g soil"^-1, "h"^-1, ")")))  + 
@@ -380,11 +380,11 @@ winter_summary <- winter %>%
                       guide = guide_legend(override.aes = list(colour = NA)))+
     annotate("text", x = 3, y = 0.5, label = "Winter", size = 3.5, fontface=2)+ #adds the sub graphs for the figure at top left
     annotate("text", x = .75, y = 0.5, label = "C)",size = 4, fontface=2)+ 
-    annotate("text", x = 1.25, y = 0.205, label = "a",size = 3.5)+ 
-    annotate("text", x = 2.25, y = 0.215, label = "a",size = 3.5)+ 
-    annotate("text", x = 3.25, y = 0.145, label = "ab",size = 3.5)+ 
-    annotate("text", x = 4.25, y = 0.03, label = "cd",size = 3.5)+ 
-    annotate("text", x = 5.25, y = 0.15, label = "ab",size = 3.5)+ 
+    annotate("text", x = 1.245, y = 0.207, label = "a",size = 3.5)+ 
+    annotate("text", x = 2.24, y = 0.217, label = "a",size = 3.5)+ 
+    annotate("text", x = 3.25, y = 0.147, label = "ab",size = 3.5)+ 
+    annotate("text", x = 4.25, y = 0.032, label = "cd",size = 3.5)+ 
+    annotate("text", x = 5.27, y = 0.152, label = "ab",size = 3.5)+ 
     scale_x_discrete(labels=c("Control" ,"Summer-","Summer+","Winter-","Winter+"))+
     theme(panel.background = element_rect(colour = "black", fill = "NA", size=.7),
           panel.grid.minor=element_blank(), #gets rid of grey and lines in the middle
@@ -404,7 +404,7 @@ summer_summary <- summer %>%
     s_se = sd(as.numeric(Gross.Nit)) / sqrt(n())
   )
 (GN_s <- ggplot(summer, aes(x = Treatment, y = as.numeric(Gross.Nit), fill = Treatment))+
-    geom_dotplot(binaxis = "y", stackdir = "center", stackratio = 0.75, binwidth = 0.009)+
+    geom_dotplot(binaxis = "y", stackdir = "center", stackratio = 0.75, binwidth = 0.009, dotsize = 1.3)+
     geom_errorbar(data = summer_summary, aes(y = s_mean, ymin = s_mean - s_se, ymax = s_mean + s_se), width = 0.2) +
     stat_summary(fun = mean, geom = "crossbar", width = 0.5) +
     #labs(y=expression(~paste(mu, "g N", "gdw"^-1)))  + 
@@ -416,10 +416,10 @@ summer_summary <- summer %>%
                       guide = guide_legend(override.aes = list(colour = NA)))+
     annotate("text", x = 3, y = 0.5, label = "Summer", size = 3.5, fontface=2)+ #adds the sub graphs for the figure at top left
     annotate("text", x = .75, y = 0.5, label = "D)",size = 4, fontface=2)+ 
-    annotate("text", x = 1.3, y = 0.09, label = "bcd",size = 4)+ 
-    annotate("text", x = 2.25, y = 0.025, label = "d",size = 4)+ 
-    annotate("text", x = 3.3, y = 0.13, label = "bcd",size = 4)+ 
-    annotate("text", x = 4.3, y = 0.065, label = "bcd",size = 4)+ 
+    annotate("text", x = 1.33, y = 0.1, label = "bcd",size = 4)+ 
+    annotate("text", x = 2.245, y = 0.027, label = "d",size = 4)+ 
+    annotate("text", x = 3.305, y = 0.137, label = "bcd",size = 4)+ 
+    annotate("text", x = 4.32, y = 0.065, label = "bcd",size = 4)+ 
     annotate("text", x = 5.3, y = 0.09, label = "bcd",size = 4)+ 
     scale_x_discrete(labels=c("Control" ,"Summer-","Summer+","Winter-","Winter+"))+
     theme(panel.background = element_rect(colour = "black", fill = "NA", size=.7),
