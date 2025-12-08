@@ -1,0 +1,5 @@
+"TOA5","Pinyon2","CR1000X","12173","CR1000X.Std.03.02","CPU:PinyonSensorsDec11.CR1X","539","Public"
+"TIMESTAMP","RECORD","BattV","PTemp_C","AirTC","RH","VW","PA_uS","VW_2","PA_uS_2","T108_C","T108_C_2","Rain_mm","VW_3","PA_uS_3","VW_4","PA_uS_4","T108_C_3","T108_C_4"
+"TS","RN","Volts","Deg C","Deg C","%","","uSec","","uSec","Deg C","Deg C","mm","","uSec","","uSec","Deg C","Deg C"
+"","","","","","","","","","","","","","","","","","",""
+"2024-02-16 10:41:09.094",3,0,23.69714,-40.05107,-0.0280712,"NAN","NAN","NAN","NAN",13.93597,12.07071,12.192,"NAN","NAN","NAN","NAN",10.83194,7.550751

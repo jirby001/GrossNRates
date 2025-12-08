@@ -19,6 +19,14 @@ library("report")
 #ranges: all = A1:T47, just winter A1:T24, just summer = A51:T74
 d <- read_excel("GrossNRatesData.xlsx", sheet = "Sheet1")
 d <- d %>% rename_all(funs(make.names(.)))# Remove spaces in column names
+# winter 2023 air temperature day of sampling: 20.883750 C
+# summer 2023 air temperature day of sampling: 24.58083 C
+
+d <- d %>% mutate(Air_temp_C = case_when(
+  Season == "Winter" ~ 20.883750,
+  Season == "Summer" ~ 24.58083,
+  TRUE ~ 1,
+))
 
 
 winter <- filter(d, Season %in% c("Winter")) 
@@ -29,27 +37,27 @@ s_add <- filter(summer, Treatment %in% c("Summer+", "Winter+"))
 
 label <- expression(paste("Winter 2023 Addition plots Gross Nitrification vs ",NH[4]^"+"))
 # plot(y ~ x)
-plot(`Gross.Nit` ~ `NH4`, data = s_add, 
-     main = "Summer GN vs initial NH4", 
-           xlab = "NH4", ylab = "GN",
-     pch = ifelse(summer$Season == "Winter",19,17),
-     col = ifelse(summer$Treatment == "Control","#ffe599",
-                  ifelse(summer$Treatment == "Summer-","#f2a6a6",
-                         ifelse(summer$Treatment == "Winter-","#b0d2f2",
-                                ifelse(summer$Treatment == "Summer+","#e87e76","#329bea")))))
+plot(Gross.Min ~ Air_temp_C, data = d, 
+     main = "GM vs air temp", 
+           xlab = "air temp", ylab = "GM",
+     pch = ifelse(d$Season == "Winter",19,17),
+     col = ifelse(d$Treatment == "Control","#ffe599",
+                  ifelse(d$Treatment == "Summer-","#f2a6a6",
+                         ifelse(d$Treatment == "Winter-","#b0d2f2",
+                                ifelse(d$Treatment == "Summer+","#e87e76","#329bea")))))
 
 
 
 
-model<-lm(`Gross Nit` ~ `NH4`, data = summer)
+model<-lm(Gross.Min ~ `Air_temp_C`, data = d)
 r2 <- summary(model)$r.squared
 p <- paste(" p = " ,format(summary(model)$coefficients[2, "Pr(>|t|)"], 
                            digits = 3))
 mylabel = bquote(italic(R)^2 == .(format(r2, digits = 3)))
 
 abline(model)
-text(x = 2, y = 0.16, labels = mylabel)
-text(x = 2, y = 0.15, labels = p)
+text(x = 22, y = 0.8, labels = mylabel)
+text(x = 22, y = 0.6, labels = p)
 
 model <- lm(`Gross Nit` ~ `Water content %` + `MB N` + 
               NH4, data = winter) #multiple linear regression

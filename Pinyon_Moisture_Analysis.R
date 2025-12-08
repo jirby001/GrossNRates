@@ -8,7 +8,7 @@ library(openxlsx)
 library(dplyr)
 library(lubridate)
 library(readxl)
-setwd("/Users/jam925/");
+setwd("/Users/jam925/GrossNRates");
 library(ggplot2)
 
 # P2 <- read.delim("Pinyon2_Table1.dat",skip=1,header=TRUE,sep=",")        
@@ -24,7 +24,7 @@ library(ggplot2)
 #   colnames(p3) <- c("Timestamp","VWC2cm","VWC10cm", "Temp2cm","Temp10cm","Plot","Treatment")
 #   head(p3)
 
-P2 <- read_excel("Desktop/Project Documents/Pinyon Data Loggers/Collected 2:16:24/Pinyon_Temperature.xlsx", 
+P2 <- read_excel("Pinyon Data Loggers/Collected 2:16:24/Pinyon_Temperature.xlsx", 
                  sheet = "Sheet 1")
 P22 <- subset(P2, P2.TIMESTAMP > "2022-01-01 12:00:00")
 
