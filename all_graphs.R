@@ -96,7 +96,7 @@ winter_summary <- winter %>%
           text = element_text(size=8),
           axis.title.x = element_text(size=8), #size of x-axis title
           axis.title.y = element_text(size=10), #size of y-axis title
-          axis.text.x = element_text(size = 12, angle = 25, hjust = 1),
+          axis.text.x = element_text(size = 15, angle = 25, hjust = 1),
           axis.text.y = element_text(size=12)))
 
 summer_summary <- summer %>%
@@ -128,12 +128,12 @@ summer_summary <- summer %>%
     theme(panel.background = element_rect(colour = "black", fill = "NA", size=.7),
           panel.grid.minor=element_blank(), #gets rid of grey and lines in the middle
           panel.grid.major=element_blank(),
-          legend.position = c(0.75, 0.75),
+          legend.position = "none",
           legend.key = element_rect(color = NA),
           text = element_text(size=8),
           axis.title.x = element_text(size=8), #size of x-axis title
           axis.title.y = element_text(size=12), #size of y-axis title
-          axis.text.x = element_text(size = 12, angle = 25, hjust = 1),
+          axis.text.x = element_text(size = 15, angle = 25, hjust = 1),
           axis.text.y = element_text(size=12)))
 (gwc <- ggarrange(gwc_w, gwc_s, ncol = 2, nrow = 1))
 ggsave(gwc, path = "Graphs", file = "gwc.jpeg", width = 8, height = 7.5, units = "in")
@@ -157,7 +157,7 @@ winter_summary <- winter %>%
                      labels = c("Control" ,"Summer-","Summer+","Winter-","Winter+"),
                      guide = guide_legend(override.aes = list(colour = NA)))+
    annotate("text", x = 3, y = 4, label = "Winter", size = 3.5, fontface=2)+ #adds the sub graphs for the figure at top left
-   annotate("text", x = .75, y = 4, label = "A)",size = 4, fontface=2)+ 
+   annotate("text", x = .75, y = 4, label = "C)",size = 4, fontface=2)+ 
    annotate("text", x = 1.3, y = 1, label = "a",size = 4)+ 
    annotate("text", x = 2.3, y = 1.9, label = "b",size = 4)+ 
    annotate("text", x = 3.3, y = 1.4, label = "ab",size = 4)+ 
@@ -171,9 +171,9 @@ winter_summary <- winter %>%
          legend.key = element_rect(color = NA),
          text = element_text(size=8),
          axis.title.x = element_text(size=8), #size of x-axis title
-         axis.title.y = element_text(size=10), #size of y-axis title
-         axis.text.x = element_text(size = 12, angle = 25, hjust = 1),
-         axis.text.y = element_text(size=12)))
+         axis.title.y = element_text(size=15), #size of y-axis title
+         axis.text.x = element_text(size = 15, angle = 25, hjust = 1),
+         axis.text.y = element_text(size=15)))
 
 summer_summary <- summer %>%
   group_by(Treatment) %>%
@@ -193,7 +193,7 @@ summer_summary <- summer %>%
                       labels = c("Control" ,"Summer-","Summer+","Winter-","Winter+"),
                       guide = guide_legend(override.aes = list(colour = NA)))+
     annotate("text", x = 3, y = 4, label = "Summer", size = 3.5, fontface=2)+ #adds the sub graphs for the figure at top left
-    annotate("text", x = .75, y = 4, label = "B)",size = 4, fontface=2)+ 
+    annotate("text", x = .75, y = 4, label = "D)",size = 4, fontface=2)+ 
     annotate("text", x = 1.3, y = 1, label = "ab",size = 4)+ 
     annotate("text", x = 2.23, y = 2, label = "ab",size = 4)+ 
     annotate("text", x = 3.2, y = 1.5, label = "ab",size = 4)+ 
@@ -207,9 +207,9 @@ summer_summary <- summer %>%
           legend.key = element_rect(color = NA),
           text = element_text(size=8),
           axis.title.x = element_text(size=8), #size of x-axis title
-          axis.title.y = element_text(size=12), #size of y-axis title
-          axis.text.x = element_text(size = 12, angle = 25, hjust = 1),
-          axis.text.y = element_text(size=12)))
+          axis.title.y = element_text(size=15), #size of y-axis title
+          axis.text.x = element_text(size = 15, angle = 25, hjust = 1),
+          axis.text.y = element_text(size=15)))
 
 winter_summary <- winter %>%
   group_by(Treatment) %>%
@@ -229,7 +229,7 @@ winter_summary <- winter %>%
                       labels = c("Control" ,"Summer-","Summer+","Winter-","Winter+"),
                       guide = guide_legend(override.aes = list(colour = NA)))+
     annotate("text", x = 3, y = 4, label = "Winter", size = 3.5, fontface=2)+ #adds the sub graphs for the figure at top left
-    annotate("text", x = .75, y = 4, label = "C)",size = 4, fontface=2)+ 
+    annotate("text", x = .75, y = 4, label = "E)",size = 4, fontface=2)+ 
     annotate("text", x = 1.35, y = 0.7, label = "abc",size = 4)+ 
     annotate("text", x = 2.2, y = 0.6, label = "a",size = 4)+ 
     annotate("text", x = 3.3, y = 0.7, label = "abc",size = 4)+ 
@@ -243,9 +243,9 @@ winter_summary <- winter %>%
           legend.key = element_rect(color = NA),
           text = element_text(size=8),
           axis.title.x = element_text(size=8), #size of x-axis title
-          axis.title.y = element_text(size=10), #size of y-axis title
-          axis.text.x = element_text(size = 12, angle = 25, hjust = 1),
-          axis.text.y = element_text(size=12)))
+          axis.title.y = element_text(size=15), #size of y-axis title
+          axis.text.x = element_text(size = 15, angle = 25, hjust = 1),
+          axis.text.y = element_text(size=15)))
 
 summer_summary <- summer %>%
   group_by(Treatment) %>%
@@ -266,7 +266,7 @@ summer_summary <- summer %>%
                       labels = c("Control" ,"Summer-","Summer+","Winter-","Winter+"),
                       guide = guide_legend(override.aes = list(colour = NA)))+
     annotate("text", x = 3, y = 4, label = "Summer", size = 3.5, fontface=2)+ #adds the sub graphs for the figure at top left
-    annotate("text", x = .75, y = 4, label = "D)",size = 4, fontface=2)+ 
+    annotate("text", x = .75, y = 4, label = "F)",size = 4, fontface=2)+ 
     annotate("text", x = 1.2, y = 1.6, label = "cd",size = 4)+ 
     annotate("text", x = 2.23, y = 0.8, label = "ab",size = 4)+ 
     annotate("text", x = 3.25, y = 1.7, label = "bcd",size = 4)+ 
@@ -280,11 +280,10 @@ summer_summary <- summer %>%
           legend.key = element_rect(color = NA),
           text = element_text(size=8),
           axis.title.x = element_text(size=8), #size of x-axis title
-          axis.title.y = element_text(size=12), #size of y-axis title
-          axis.text.x = element_text(size = 12, angle = 25, hjust = 1),
-          axis.text.y = element_text(size=12)))
+          axis.text.x = element_text(size = 15, angle = 25, hjust = 1),
+          axis.text.y = element_text(size=15)))
 
-(NH4_NO3 <- ggarrange(NH4_w, NH4_s, NO3_w, NO3_s, ncol = 2, nrow = 2, common.legend = TRUE, legend = "right"))
+(NH4_NO3 <- ggarrange(NH4_w, NH4_s, NO3_w, NO3_s, ncol = 2, nrow = 2, common.legend = TRUE, legend = "none"))
 
 ggsave(NH4_NO3, path = "Graphs", file = "NH4_NO3.jpeg", width = 8, height = 7.5, units = "in")
 
@@ -317,11 +316,11 @@ winter_summary <- winter %>%
    theme(panel.background = element_rect(colour = "black", fill = "NA", size=.7),
          panel.grid.minor=element_blank(), #gets rid of grey and lines in the middle
          panel.grid.major=element_blank(),
-         legend.position = c(0.75, 0.75),
+         legend.position = "none",
          legend.key = element_rect(color = NA),
          text = element_text(size=8),
          axis.title.x = element_text(size=8), #size of x-axis title
-         axis.title.y = element_text(size=10), #size of y-axis title
+         axis.title.y = element_text(size=11), #size of y-axis title
          axis.text.x = element_text(size = 12, angle = 25, hjust = 1),
          axis.text.y = element_text(size=12)))
 
@@ -393,7 +392,7 @@ winter_summary <- winter %>%
           legend.key = element_rect(color = NA),
           text = element_text(size=8),
           axis.title.x = element_text(size=8), #size of x-axis title
-          axis.title.y = element_text(size=10), #size of y-axis title
+          axis.title.y = element_text(size=11.5), #size of y-axis title
           axis.text.x = element_text(size = 12, angle = 25, hjust = 1),
           axis.text.y = element_text(size=12)))
 
@@ -433,7 +432,7 @@ summer_summary <- summer %>%
           axis.text.x = element_text(size = 12, angle = 25, hjust = 1),
           axis.text.y = element_text(size=12)))
 
-(GM_GN <- ggarrange(GM_w, GM_s, GN_w, GN_s, ncol = 2, nrow = 2, common.legend = TRUE, legend = "right"))
+(GM_GN <- ggarrange(GM_w, GM_s, GN_w, GN_s, ncol = 2, nrow = 2, common.legend = TRUE, legend = "none"))
 
 ggsave(GM_GN, path = "Graphs", file = "GM_GN.jpeg", width = 8, height = 7.5, units = "in")
 
@@ -470,7 +469,7 @@ winter_summary <- winter %>%
          legend.key = element_rect(color = NA),
          text = element_text(size=8),
          axis.title.x = element_text(size=8), #size of x-axis title
-         axis.title.y = element_text(size=10), #size of y-axis title
+         axis.title.y = element_text(size=12), #size of y-axis title
          axis.text.x = element_text(size = 12, angle = 25, hjust = 1),
          axis.text.y = element_text(size=12)))
 
@@ -504,10 +503,10 @@ summer_summary <- summer %>%
           legend.position = "none",
           legend.key = element_rect(color = NA),
           text = element_text(size=8),
-          axis.title.x = element_text(size=8), #size of x-axis title
-          axis.title.y = element_text(size=10), #size of y-axis title
-          axis.text.x = element_text(size = 12, angle = 25, hjust = 1),
-          axis.text.y = element_text(size=12)))
+         axis.title.x = element_text(size=8), #size of x-axis title
+         axis.title.y = element_text(size=11), #size of y-axis title
+         axis.text.x = element_text(size = 12, angle = 25, hjust = 1),
+         axis.text.y = element_text(size=12)))
 
 winter_summary <- winter %>%
   group_by(Treatment) %>%
@@ -540,7 +539,7 @@ winter_summary <- winter %>%
           legend.key = element_rect(color = NA),
           text = element_text(size=8),
           axis.title.x = element_text(size=8), #size of x-axis title
-          axis.title.y = element_text(size=10), #size of y-axis title
+          axis.title.y = element_text(size=13), #size of y-axis title
           axis.text.x = element_text(size = 12, angle = 25, hjust = 1),
           axis.text.y = element_text(size=12)))
 
@@ -579,7 +578,7 @@ summer_summary <- summer %>%
           axis.text.x = element_text(size = 12, angle = 25, hjust = 1),
           axis.text.y = element_text(size=12)))
 
-(Net_rates <- ggarrange(Net_Min_w, Net_Min_s, Net_Nit_w, Net_Nit_s, ncol = 2, nrow = 2, common.legend = TRUE, legend = "right"))
+(Net_rates <- ggarrange(Net_Min_w, Net_Min_s, Net_Nit_w, Net_Nit_s, ncol = 2, nrow = 2, common.legend = TRUE, legend = "none"))
 
 ggsave(Net_rates, path = "Graphs", file = "Net_rates.jpeg", width = 8, height = 7.5, units = "in")
 
